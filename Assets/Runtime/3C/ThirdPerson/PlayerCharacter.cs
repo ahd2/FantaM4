@@ -28,11 +28,6 @@ public class PlayerCharacter : MonoBehaviour
 
     #endregion
 
-    #region 切换角色相关
-
-    
-    #endregion
-
     #endregion
     
     #region 事件函数
@@ -49,25 +44,14 @@ public class PlayerCharacter : MonoBehaviour
     
     void Start()
     {
-        //初始化鼠标
-        //CursorManager.InitialCursor();
-        //Application.targetFrameRate = 60;
         ToHideCursor();
         //启用动作表,在这里才是真正启用，逻辑实现在具体类中。
         input.EnableGamePlayInputs();
-        //菜单是否开启
-        MenuEnable = false;
     }
     
     void Update()
     {
-        //菜单没开启的时候，才进行这些更新
-        if (!MenuEnable)
-        {
-            UpdateCamRotate();//更新相机旋转
-            //如果alt键被按下，显示鼠标
-            ToHideCursor();
-        }
+        UpdateCamRotate();//更新相机旋转
     }
     #endregion
 
@@ -150,30 +134,4 @@ public class PlayerCharacter : MonoBehaviour
     }
     
     #endregion
-    /// <summary>
-    /// 如果按下了返回菜单
-    /// </summary>
-    public void PauseMenuEnable()
-    {
-        MenuEnable = true;
-        //鼠标显示并解锁
-        _photographer.CanRotateCamera = false;
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-        //切换InputMap
-        input.DisableGamePlayInputs();
-        input.EnableMenuInputs();
-    }
-    /// <summary>
-    /// 如果退出了返回菜单
-    /// </summary>
-    public void PauseMenuDisable()
-    {
-        MenuEnable = false;
-        _photographer.CanRotateCamera = true;
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        input.DisableMenuInputs();
-        input.EnableGamePlayInputs();
-    }
 }

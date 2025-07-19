@@ -16,7 +16,7 @@ public class StateMachine : MonoBehaviour
     void Update()
     {
         currentState.LogicUpdate();
-        //Debug.Log(currentState.GetType());
+        Debug.Log(currentState.GetType());
     }
     /// <summary>
     /// 物理更新
