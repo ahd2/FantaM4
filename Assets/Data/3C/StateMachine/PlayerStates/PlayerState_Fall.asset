@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ab2b13d3856b014f9969453fbbe11d5, type: 3}
   m_Name: PlayerState_Fall
   m_EditorClassIdentifier: 
-  stateName: idle
+  stateAnimationName: fall
   transitionDuration: 0.1
   runspeed: 5
   speedCurver:

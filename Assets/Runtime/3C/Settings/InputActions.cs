@@ -141,7 +141,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""name"": ""SwitchWind"",
                     ""type"": ""Button"",
                     ""id"": ""9f4bcfee-2d00-4318-b763-cb89250a4bee"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -150,7 +150,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""name"": ""HideCursor"",
                     ""type"": ""Button"",
                     ""id"": ""4ec42c17-e43a-41c3-8cf3-670bff0fb760"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false

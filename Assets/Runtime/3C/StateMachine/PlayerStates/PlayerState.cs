@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// 基础状态类的实现，用来做玩家状态类的父类。
@@ -10,7 +11,7 @@ using UnityEngine.InputSystem;
 public class PlayerState : ScriptableObject,IState
 {
     //交叉淡化相关
-    [SerializeField]private string stateName;//要在data资源中自己赋值，输入动画名即可
+    [FormerlySerializedAs("stateName")] [SerializeField]private string stateAnimationName;//要在data资源中自己赋值，输入动画名即可
     private int stateHash;
     [SerializeField ,Range(0f,1f)]private float transitionDuration = 0.1f;//交叉淡化时间
     
@@ -28,7 +29,7 @@ public class PlayerState : ScriptableObject,IState
 
     private void OnEnable()
     {
-        stateHash = Animator.StringToHash(stateName);
+        stateHash = Animator.StringToHash(stateAnimationName);
     }
 
     //初始化动画和状态机
