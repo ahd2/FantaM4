@@ -1,0 +1,5 @@
+角色控制器需要安装 InputSystem
+
+ThirdPerson的Photographer提供的镜头控制功能，需要修改项目设置：InputManager中，Horizontal，复制一份，命名为CameraRateX ；Vertical，复制一份，命名为CameraRateY ；如果操控相机旋转方向反了。调整Photographer脚本中的UpdateRotation()函数。
+
+完整玩家的prefab构成为：
