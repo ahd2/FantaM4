@@ -8,7 +8,6 @@ Shader "Unlit/NewUnlitShader"
     {
         Tags { "RenderType"="Opaque" }
         LOD 100
-        Cull Off
         Blend Off
         ZTest On
         ZWrite Off

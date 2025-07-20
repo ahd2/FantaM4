@@ -29,7 +29,7 @@ Material:
     - _DepthNormalThresholdScale: 0
     - _DepthThreshold: 0
     - _NormalThreshold: 0
-    - _Ref: 0
+    - _Ref: 2
     - _Scale: 0
     m_Colors:
     - _EdgeColor: {r: 0, g: 0, b: 0, a: 1}
