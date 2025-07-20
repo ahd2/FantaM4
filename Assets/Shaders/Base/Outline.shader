@@ -28,9 +28,9 @@ Shader"Unlit/Outline"
             //这两个头文件包括了大多数需要用到的变量
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/Shaders/PostProcessing/Common.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DeclareDepthTexture.hlsl"
 
             TEXTURE2D(_CameraNormalsTexture);
-            TEXTURE2D(_CameraDepthTexture);
             
             //这个需要自己声明，xy表示纹素的长宽，zw表示整个BlitTexture的长宽，BlitTexture就是当前摄像机的颜色缓冲区
             float4 _BlitTexture_TexelSize;
@@ -52,6 +52,18 @@ Shader"Unlit/Outline"
                 float3 viewSpaceDir : TEXCOORD5;
                 UNITY_VERTEX_OUTPUT_STEREO
             };
+            // 假设你有相机的近平面四个角的世界空间方向
+            // 或者你可以通过 ComputeViewSpaceDirectionFromUv 实现
+
+            // 例如：
+            float3 ComputeViewSpaceDirectionFromUv(float2 uv)
+            {
+                float x = uv.x * 2.0 - 1.0;
+                float y = (1.0 - uv.y) * 2.0 - 1.0;
+                float4 hclip = float4(x, y, 1.0, 1.0);
+                float4 hview = mul(UNITY_MATRIX_I_P, hclip);
+                return hview.xyz / hview.w;
+            }
 
             OutlineVaryings OutlineVert(Attributes input)
             {
@@ -69,7 +81,11 @@ Shader"Unlit/Outline"
 
                 output.positionCS = pos;
                 output.texcoord   = uv * _BlitScaleBias.xy + _BlitScaleBias.zw;
-                output.viewSpaceDir = mul(UNITY_MATRIX_I_P, output.positionCS).xyz;
+
+                
+                //output.viewSpaceDir = mul(UNITY_MATRIX_I_P, output.positionCS).xyz;
+                float3 viewPos = (mul(UNITY_MATRIX_I_P, output.positionCS).xyz);
+                output.viewSpaceDir = ComputeViewSpaceDirectionFromUv(uv);
                 return output;
             }
 
@@ -114,12 +130,24 @@ Shader"Unlit/Outline"
                 half edge = 1 - abs(edgeX) - abs(edgeY);
                 return edge;
             }
-
+            
             float CalculateEdge(OutlineVaryings i)
             {
+                float2 UV = i.positionCS.xy / _ScaledScreenParams.xy;
+
+                // 从摄像机深度纹理中采样深度。
+                #if UNITY_REVERSED_Z
+                    real depth = SampleSceneDepth(UV);
+                #else
+                    //  调整 Z 以匹配 OpenGL 的 NDC ([-1, 1])
+                    real depth = lerp(UNITY_NEAR_CLIP_VALUE, 1, SampleSceneDepth(UV));
+                #endif
+
+                // 重建世界空间位置。
+                float3 worldPos = ComputeWorldSpacePosition(UV, depth, UNITY_MATRIX_I_VP);
                 
-                float halfScaleFloor = floor(_Scale * 0.5);
-				float halfScaleCeil = ceil(_Scale * 0.5);
+                float halfScaleFloor = _Scale * 0.5;
+				float halfScaleCeil = _Scale * 0.5;
 
                 float2 bottomLeftUV = i.texcoord - float2(_BlitTexture_TexelSize.x, _BlitTexture_TexelSize.y) * halfScaleFloor;
                 float2 topRightUV = i.texcoord + float2(_BlitTexture_TexelSize.x, _BlitTexture_TexelSize.y) * halfScaleCeil;  
@@ -131,10 +159,10 @@ Shader"Unlit/Outline"
                 float depth2 = SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, sampler_LinearClamp, bottomRightUV).r;
                 float depth3 = SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, sampler_LinearClamp, topLeftUV).r;
 
-                float3 normal0 = SAMPLE_TEXTURE2D(_CameraNormalsTexture, sampler_LinearClamp, bottomLeftUV).rgb * 2 - 1;
-                float3 normal1 = SAMPLE_TEXTURE2D(_CameraNormalsTexture, sampler_LinearClamp, topRightUV).rgb* 2 - 1;
-                float3 normal2 = SAMPLE_TEXTURE2D(_CameraNormalsTexture, sampler_LinearClamp, bottomRightUV).rgb* 2 - 1;
-                float3 normal3 = SAMPLE_TEXTURE2D(_CameraNormalsTexture, sampler_LinearClamp, topLeftUV).rgb* 2 - 1;
+                float3 normal0 = SAMPLE_TEXTURE2D(_CameraNormalsTexture, sampler_LinearClamp, bottomLeftUV).rgb;
+                float3 normal1 = SAMPLE_TEXTURE2D(_CameraNormalsTexture, sampler_LinearClamp, topRightUV).rgb;
+                float3 normal2 = SAMPLE_TEXTURE2D(_CameraNormalsTexture, sampler_LinearClamp, bottomRightUV).rgb;
+                float3 normal3 = SAMPLE_TEXTURE2D(_CameraNormalsTexture, sampler_LinearClamp, topLeftUV).rgb;
 
                 float3 normalFiniteDifference0 = normal1 - normal0;
                 float3 normalFiniteDifference1 = normal3 - normal2;
@@ -144,10 +172,11 @@ Shader"Unlit/Outline"
 
                 float depthFiniteDifference0 = depth1 - depth0;
                 float depthFiniteDifference1 = depth3 - depth2;
-                float edgeDepth = sqrt(pow(depthFiniteDifference0, 2) + pow(depthFiniteDifference1, 2)) * 100;
+                float edgeDepth = sqrt(pow(depthFiniteDifference0, 2) + pow(depthFiniteDifference1, 2)) * 400;
 
-                float3 viewNormal = normal0 * 2 - 1;
-                float NdotV = 1 - dot(viewNormal, -i.viewSpaceDir);
+                float3 viewdir = GetWorldSpaceViewDir(worldPos);
+                float3 viewNormal = normalize(normal0);
+                float NdotV = saturate(1.5 *(1 - dot(viewNormal, viewdir)));
                 float normalThreshold01 = saturate((NdotV - _DepthNormalThreshold) / (1 - _DepthNormalThreshold));
                 float normalThreshold = normalThreshold01 * _DepthNormalThresholdScale + 1;
 
@@ -164,7 +193,9 @@ Shader"Unlit/Outline"
                     edge = 0;
                 }
 
-                return edge;
+                return NdotV;
+                //return edgeDepth;
+                return step(_DepthNormalThreshold, NdotV);
             }
 
             half4 Frag(OutlineVaryings i) : SV_TARGET
@@ -187,9 +218,10 @@ Shader"Unlit/Outline"
                 half edge = min(edgeNormal, edgeDepth);
                 edge = CalculateEdge(i);
                 //return edge;
-                half4 withEdgeColor = lerp(_EdgeColor,SAMPLE_TEXTURE2D_X(_BlitTexture, sampler_LinearClamp, uv), 1-edge);
-                
-                return withEdgeColor;
+                //half4 withEdgeColor = lerp(_EdgeColor,SAMPLE_TEXTURE2D_X(_BlitTexture, sampler_LinearClamp, uv), 1-edge);
+
+                //return half4(edge,1);
+                return edge;
                 
             }
             ENDHLSL
