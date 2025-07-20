@@ -19,6 +19,8 @@ Shader"Unlit/Outline"
         Blend Off
         ZTest Off
         ZWrite Off
+        
+        
         Pass
         {
             Name "Outline"
