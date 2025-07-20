@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: PlayerState_Idle
   m_EditorClassIdentifier: 
   stateAnimationName: idle
-  transitionDuration: 0.1
+  transitionDuration: 0.2

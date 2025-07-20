@@ -88,48 +88,6 @@ Shader"Unlit/Outline"
                 output.viewSpaceDir = ComputeViewSpaceDirectionFromUv(uv);
                 return output;
             }
-
-            half NormalSobel()
-            {
-                const half Gx[9] = {-1, -2, -1, 0, 0, 0, 1, 2, 1};
-                const half Gy[9] = {-1, 0, 1, -2, 0, 2, -1, 0, 1};
-                half texColor;
-                half edgeX = 0, edgeY = 0;
-                for (int it = 0; it < 9; it++)
-                {
-                    //RGB转亮度
-                    texColor = Luminance(SAMPLE_TEXTURE2D_X(_CameraNormalsTexture, sampler_LinearClamp, uvs[it]));
-                    //计算亮度在XY方向的导数，如果导数越大，越接近一个边缘点
-                    edgeX += texColor * Gx[it];
-                    edgeY += texColor * Gy[it];
-                }
-                //edge越小，越可能是个边缘点
-                half edge = 1 - abs(edgeX) - abs(edgeY);
-                return edge;
-            }
-
-            half DepthSobel()
-            {
-                const half Gx[9] = {-1, -1, -1, 0, 0, 0, 1, 1, 1};
-                const half Gy[9] = {-1, 0, 1, -2, 0, 2, -1, 0, 1};
-                half texColor;
-                half edgeX = 0, edgeY = 0;
-                for (int it = 0; it < 9; it++)
-                {
-                    //采样原始深度
-                    float rawDepth = SAMPLE_TEXTURE2D_X(_CameraDepthTexture, sampler_LinearClamp, uvs[it]);
-                    //转换成linear01深度
-                    float linear01Depth = LinearEyeDepth(rawDepth, _ZBufferParams);
-                    //RGB转亮度
-                    texColor = Luminance(float3(linear01Depth,linear01Depth,linear01Depth));
-                    //计算亮度在XY方向的导数，如果导数越大，越接近一个边缘点
-                    edgeX += texColor * Gx[it];
-                    edgeY += texColor * Gy[it];
-                }
-                //edge越小，越可能是个边缘点
-                half edge = 1 - abs(edgeX) - abs(edgeY);
-                return edge;
-            }
             
             float CalculateEdge(OutlineVaryings i)
             {
@@ -146,8 +104,8 @@ Shader"Unlit/Outline"
                 // 重建世界空间位置。
                 float3 worldPos = ComputeWorldSpacePosition(UV, depth, UNITY_MATRIX_I_VP);
                 
-                float halfScaleFloor = _Scale * 0.5;
-				float halfScaleCeil = _Scale * 0.5;
+                float halfScaleFloor = floor(_Scale * 0.5) * 0.5;
+				float halfScaleCeil = ceil(_Scale * 0.5) * 0.5;
 
                 float2 bottomLeftUV = i.texcoord - float2(_BlitTexture_TexelSize.x, _BlitTexture_TexelSize.y) * halfScaleFloor;
                 float2 topRightUV = i.texcoord + float2(_BlitTexture_TexelSize.x, _BlitTexture_TexelSize.y) * halfScaleCeil;  
@@ -172,11 +130,11 @@ Shader"Unlit/Outline"
 
                 float depthFiniteDifference0 = depth1 - depth0;
                 float depthFiniteDifference1 = depth3 - depth2;
-                float edgeDepth = sqrt(pow(depthFiniteDifference0, 2) + pow(depthFiniteDifference1, 2)) * 400;
+                float edgeDepth = sqrt(pow(depthFiniteDifference0, 2) + pow(depthFiniteDifference1, 2)) * 100;
 
                 float3 viewdir = GetWorldSpaceViewDir(worldPos);
                 float3 viewNormal = normalize(normal0);
-                float NdotV = saturate(1.5 *(1 - dot(viewNormal, viewdir)));
+                float NdotV = saturate(1 - dot(viewNormal, viewdir));
                 float normalThreshold01 = saturate((NdotV - _DepthNormalThreshold) / (1 - _DepthNormalThreshold));
                 float normalThreshold = normalThreshold01 * _DepthNormalThresholdScale + 1;
 
@@ -193,35 +151,21 @@ Shader"Unlit/Outline"
                     edge = 0;
                 }
 
-                return NdotV;
+                //return NdotV;
                 //return edgeDepth;
-                return step(_DepthNormalThreshold, NdotV);
+                return edge;
             }
 
             half4 Frag(OutlineVaryings i) : SV_TARGET
             {
                 half2 uv = i.texcoord;
-                uvs[0] = uv + _BlitTexture_TexelSize.xy * half2(-1, -1);
-                uvs[1] = uv + _BlitTexture_TexelSize.xy * half2(0, -1);
-                uvs[2] = uv + _BlitTexture_TexelSize.xy * half2(1, -1);
-                uvs[3] = uv + _BlitTexture_TexelSize.xy * half2(-1, 0);
-                uvs[4] = uv + _BlitTexture_TexelSize.xy * half2(0, 0);
-                uvs[5] = uv + _BlitTexture_TexelSize.xy * half2(1, 0);
-                uvs[6] = uv + _BlitTexture_TexelSize.xy * half2(-1, 1);
-                uvs[7] = uv + _BlitTexture_TexelSize.xy * half2(0, 1);
-                uvs[8] = uv + _BlitTexture_TexelSize.xy * half2(1, -1);
-                half edgeNormal = NormalSobel();
-                half edgeDepth = DepthSobel();
-                edgeDepth = step(0.2, edgeDepth);
-                edgeNormal = step(0.5, edgeNormal);
                 //根据edge的大小，在边缘颜色和原本颜色之间插值，edge为0时，完全是边缘，edge为1时，完全是原始颜色
-                half edge = min(edgeNormal, edgeDepth);
-                edge = CalculateEdge(i);
+                half edge = CalculateEdge(i);
                 //return edge;
-                //half4 withEdgeColor = lerp(_EdgeColor,SAMPLE_TEXTURE2D_X(_BlitTexture, sampler_LinearClamp, uv), 1-edge);
+                half4 withEdgeColor = lerp(_EdgeColor,SAMPLE_TEXTURE2D_X(_BlitTexture, sampler_LinearClamp, uv), 1-edge);
 
                 //return half4(edge,1);
-                return edge;
+                return withEdgeColor;
                 
             }
             ENDHLSL
