@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Unlit_NewUnlitShader
+  m_Name: Unlit_StencilDoor
   m_Shader: {fileID: 4800000, guid: aa52a9970c322074b8f50b3c9c7876ca, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
