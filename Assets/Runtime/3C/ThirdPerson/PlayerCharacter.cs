@@ -112,14 +112,55 @@ public class PlayerCharacter : MonoBehaviour
     [SerializeField] private CinemachineFreeLook freeLookCam;
     [SerializeField] private CinemachineFreeLook aimCam;
 
+    /// <summary>
+    /// 同步 FreeLook 相机的轨道角度到当前相机实际朝向
+    /// </summary>
+    public void SyncFreeLookToCurrentView()
+    {
+        if (freeLookCam == null) return;
+
+        // 获取当前激活的 Cinemachine 相机的实际朝向
+        var currentCamera = GetActiveCinemachineCamera();
+        if (currentCamera == null) return;
+
+        // 获取当前相机的 Forward（世界空间）
+        Vector3 forward = currentCamera.transform.forward;
+
+        // 投影到水平面（忽略Y轴）
+        forward.y = 0;
+        if (forward.sqrMagnitude < 0.01f) return;
+        forward.Normalize();
+
+        // 计算 Yaw（水平旋转角度）
+        float currentYaw = Mathf.Atan2(forward.x, forward.z) * Mathf.Rad2Deg;
+
+        // 设置 FreeLook 的 X Axis（水平轨道角度）
+        freeLookCam.m_XAxis.Value = currentYaw;
+
+        
+    }
+
+    private Camera GetActiveCinemachineCamera()
+    {
+        foreach (var brain in FindObjectsOfType<CinemachineBrain>())
+        {
+            if (brain.isActiveAndEnabled && brain.OutputCamera != null)
+            {
+                return brain.OutputCamera;
+            }
+        }
+        return null;
+    }
     public void EnterAimMode()
     {
+        SyncFreeLookToCurrentView();
         aimCam.Priority = 20;
         freeLookCam.Priority = 5;
     }
 
     public void ExitAimMode()
     {
+        SyncFreeLookToCurrentView();
         aimCam.Priority = 5;
         freeLookCam.Priority = 10;
     }
