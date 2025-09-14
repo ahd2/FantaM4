@@ -51,7 +51,6 @@ public class PlayerCharacter : MonoBehaviour
     
     void Update()
     {
-        UpdateCamRotate();//更新相机旋转
     }
     #endregion
 
@@ -83,21 +82,32 @@ public class PlayerCharacter : MonoBehaviour
     /// </summary>
     public void Move(float speed)
     {
-        //获取矫正旋转量
-        Quaternion rot = Quaternion.Euler(0, _photographer.Yaw, 0);
-        //矫正后正方向
-        Vector3 y = rot * Vector3.forward * (input.axes.y);
-        Vector3 x = rot * Vector3.right * (input.axes.x);
-        SetVelocityXZ(speed * (x + y));
-        if (input.Move)
+        Transform cam = Camera.main.transform;
+
+        // 相机 forward/right，只保留水平分量
+        Vector3 forward = cam.forward;
+        forward.y = 0;
+        forward.Normalize();
+
+        Vector3 right = cam.right;
+        right.y = 0;
+        right.Normalize();
+
+        // 输入
+        Vector3 moveDir = forward * input.axes.y + right * input.axes.x;
+
+        // 应用速度
+        SetVelocityXZ(moveDir * speed);
+
+        // 面朝方向
+        if (moveDir.sqrMagnitude > 0.01f)
         {
-            //调整面朝向的部分
-            Quaternion quaDir = Quaternion.LookRotation((x+y), Vector3.up);
-            //缓慢转动到目标点
+            Quaternion quaDir = Quaternion.LookRotation(moveDir, Vector3.up);
             transform.rotation = Quaternion.Lerp(transform.rotation, quaDir, Time.fixedDeltaTime * 15);
             currentRotate = quaDir;
         }
     }
+
 
     #endregion
 
