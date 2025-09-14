@@ -1,3 +1,4 @@
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
@@ -107,6 +108,22 @@ public class PlayerCharacter : MonoBehaviour
             currentRotate = quaDir;
         }
     }
+    
+    [SerializeField] private CinemachineFreeLook freeLookCam;
+    [SerializeField] private CinemachineFreeLook aimCam;
+
+    public void EnterAimMode()
+    {
+        aimCam.Priority = 20;
+        freeLookCam.Priority = 5;
+    }
+
+    public void ExitAimMode()
+    {
+        aimCam.Priority = 5;
+        freeLookCam.Priority = 10;
+    }
+
 
 
     #endregion

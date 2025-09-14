@@ -28,6 +28,12 @@ public class PlayerState_Idle : PlayerState
         {
             stateMachine.SwitchState(typeof(PlayerState_Fall));
         }
+        // Idle 或 Run 状态
+        if (input.Aim)
+        {
+            stateMachine.SwitchState(typeof(PlayerState_Aim));
+        }
+
     }
 
     public override void PhysicUpdate()

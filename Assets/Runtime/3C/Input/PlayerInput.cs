@@ -26,6 +26,9 @@ public class PlayerInput : MonoBehaviour
     //鼠标显示输入
     public bool HideCursor => playerInputActions.GamePlay.HideCursor.IsPressed();
     
+    // 瞄准输入（长按左键）
+    public bool Aim => playerInputActions.GamePlay.Aim.IsPressed();
+    
     //返回菜单输入
     public bool PauseMenu => playerInputActions.GamePlay.Menu.WasPressedThisFrame();//这一帧按下了这个按键
 
