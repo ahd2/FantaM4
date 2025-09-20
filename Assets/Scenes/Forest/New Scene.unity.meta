@@ -1,5 +1,10 @@
 fileFormatVersion: 2
-guid: 4da5c6d4bb538c34a85d352546bc7aa6
+<<<<<<<< HEAD:Assets/Scenes/Forest/New Scene.unity.meta
+guid: aaf973477dede804aac69230ba86a3c5
+========
+guid: bdcf80363b5264742ab105300526aa2a
+folderAsset: yes
+>>>>>>>> main:Assets/Prefab.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
