@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateAnimationName: Run
   transitionDuration: 0
-  runspeed: 5
+  runspeed: 10
