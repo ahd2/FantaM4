@@ -41,6 +41,9 @@ public class PlayerCharacter : MonoBehaviour
         rigidbody = GetComponent<Rigidbody>();
         //获取地面检测器组件
         _groundDetector = GetComponentInChildren<GroundDetector>();
+        
+        // 缓存自身碰撞体，用于之后忽略子弹与自身碰撞
+        myColliders = GetComponentsInChildren<Collider>();
     }
     
     void Start()
@@ -52,6 +55,7 @@ public class PlayerCharacter : MonoBehaviour
     
     void Update()
     {
+        HandleFiring();
     }
     #endregion
 
@@ -202,4 +206,71 @@ public class PlayerCharacter : MonoBehaviour
     }
     
     #endregion
+    
+    [Header("Shooting")]
+    public GameObject bulletPrefab;      // 在 Inspector 指向 Bullet Prefab
+    public Transform aimMuzzle;          // 人物手臂 muzzle（在场景中拖骨骼或空物体到这里）
+    public float bulletSpeed = 50f;
+    public float fireRate = 10f;         // 每秒发射次数
+
+// 运行时变量（不要序列化）
+    private float fireCooldown = 0f;
+    private bool isFiring = false;
+    private Collider[] myColliders;
+    
+    public void StartFiring()
+    {
+        isFiring = true;
+        fireCooldown = 0f;
+    }
+
+    public void StopFiring()
+    {
+        isFiring = false;
+    }
+
+    public void FireOnce()
+    {
+        if (bulletPrefab == null || aimMuzzle == null) return;
+
+        var bulletGo = Instantiate(bulletPrefab, aimMuzzle.position, Quaternion.identity);
+        var bulletRb = bulletGo.GetComponent<Rigidbody>();
+
+        // 获取当前实际输出的摄像机（兼容 Cinemachine）
+        Camera cam = GetActiveCinemachineCamera() ?? Camera.main;
+
+        // 朝向屏幕中心的方向
+        Vector3 dir = cam.ScreenPointToRay(new Vector2(Screen.width * 0.5f, Screen.height * 0.5f)).direction.normalized;
+
+        Vector3 velocity = dir * bulletSpeed;
+
+        if (bulletRb != null)
+            bulletRb.velocity = velocity;
+
+        // 忽略子弹和自身碰撞
+        var bulletCollider = bulletGo.GetComponent<Collider>();
+        if (bulletCollider != null && myColliders != null)
+        {
+            foreach (var c in myColliders)
+                Physics.IgnoreCollision(bulletCollider, c);
+        }
+
+        // 如果子弹脚本有 Init，调用它（上文 Bullet.Init）
+        var bulletScript = bulletGo.GetComponent<Bullet>();
+        if (bulletScript != null) bulletScript.Init(velocity, this.gameObject);
+    }
+    
+    private void HandleFiring()
+    {
+        if (!isFiring) return;
+
+        fireCooldown -= Time.deltaTime;
+        if (fireCooldown <= 0f)
+        {
+            FireOnce();
+            fireCooldown = 1f / Mathf.Max(0.0001f, fireRate);
+        }
+    }
+
+
 }

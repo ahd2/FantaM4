@@ -8,6 +8,8 @@ public class PlayerState_Aim : PlayerState
         base.Enter();
         // 切换到过肩相机
         playerCharacter.EnterAimMode();
+        //playerCharacter.fireRate = fireRate; // 可选：同步速率
+        playerCharacter.StartFiring();      // 开始持续开火
     }
 
     public override void LogicUpdate()
@@ -40,6 +42,7 @@ public class PlayerState_Aim : PlayerState
     public override void Exit()
     {
         base.Exit();
+        playerCharacter.StopFiring();
         // 切回正常相机
         playerCharacter.ExitAimMode();
     }

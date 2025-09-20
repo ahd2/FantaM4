@@ -774,7 +774,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 367843080}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.21466574, y: 0.16271715, z: 0.036296222, w: 0.9623535}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -853,7 +853,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 369979675}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.5162548, y: 0, z: 0, w: 0.8564351}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2572,6 +2572,37 @@ MonoBehaviour:
   m_BiasX: 0.191
   m_BiasY: -0.011
   m_CenterOnActivate: 1
+--- !u!1 &1629713676
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1629713677}
+  m_Layer: 0
+  m_Name: ShootRoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1629713677
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1629713676}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.203, z: 0.235}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7207066055507291364}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1651956720
 GameObject:
   m_ObjectHideFlags: 0
@@ -5085,6 +5116,7 @@ Transform:
   - {fileID: 2751417868788289294}
   - {fileID: 1236192338844702701}
   - {fileID: 4635420078012126543}
+  - {fileID: 1629713677}
   m_Father: {fileID: 9030037917639450903}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &7217811870114128954
@@ -5339,6 +5371,11 @@ MonoBehaviour:
   _followingTarget: {fileID: 2751417868788289294}
   freeLookCam: {fileID: 1651956722}
   aimCam: {fileID: 2074111834}
+  bulletPrefab: {fileID: 9201996376937971717, guid: 171353ce0039c9c43a5a8d2e071def9b,
+    type: 3}
+  aimMuzzle: {fileID: 1629713677}
+  bulletSpeed: 25
+  fireRate: 5
 --- !u!1 &8104708785793215951
 GameObject:
   m_ObjectHideFlags: 0
