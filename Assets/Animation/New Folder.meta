@@ -1,6 +1,10 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/FlatKit/Demos/[Demo] Car/Car - Scene - Set1.unity.meta
+guid: dba0451a3f99fa441a5a8b72618a8833
+========
 guid: dd99c532e7ba6134387224da455d937a
 folderAsset: yes
+>>>>>>>> main:Assets/Animation/New Folder.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

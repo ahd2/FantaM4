@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b706347dbd9eab4fa2001a4a02f9889, type: 3}
   m_Name: PlayerState_CoyoteTime
   m_EditorClassIdentifier: 
-  stateName: Run
+  stateAnimationName: Run
   transitionDuration: 0.1
-  runspeed: 5
+  runspeed: 10
   coyoteTime: 0.1
