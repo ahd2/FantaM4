@@ -9,7 +9,7 @@ Shader "Unlit/Cartoon"
     {
         Tags { "RenderType"="Opaque" }
         LOD 100
-
+        cull off
         Pass
         {
             HLSLPROGRAM
