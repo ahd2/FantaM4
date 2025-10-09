@@ -51,7 +51,7 @@ Material:
     - _DistanceFogIntensity: 0.694
     - _DistanceHeightBlend: 0.251
     - _Far: 150
-    - _HeightFogIntensity: 0.631
+    - _HeightFogIntensity: 0.632
     - _HighWorldY: 35
     - _LowWorldY: 0
     - _Near: 27
@@ -72,50 +72,50 @@ MonoBehaviour:
   useDistance: 1
   distanceGradient:
     serializedVersion: 2
-    key0: {r: 0, g: 0.85213137, b: 1, a: 0.09803922}
-    key1: {r: 1, g: 0.99326676, b: 0.5707547, a: 1}
-    key2: {r: 1, g: 0.99326676, b: 0.5707547, a: 1}
-    key3: {r: 0.2708409, g: 0.3547527, b: 0.47304404, a: 0}
-    key4: {r: 0.3394127, g: 0.44456932, b: 0.5928098, a: 0}
+    key0: {r: 0, g: 0.85213137, b: 1, a: 0.08627451}
+    key1: {r: 0, g: 1, b: 0.6885247, a: 0.47999072}
+    key2: {r: 1, g: 0.98691213, b: 0.380503, a: 1}
+    key3: {r: 0.76440775, g: 0.6194968, b: 1, a: 1}
+    key4: {r: 0.3394127, g: 0.44456932, b: 0.5928098, a: 1}
     key5: {r: 0.41254908, g: 0.54036474, b: 0.720548, a: 0}
     key6: {r: 0.49254465, g: 0.6451445, b: 0.86026627, a: 0}
     key7: {r: 0.57254905, g: 0.74993587, b: 1, a: 0}
     ctime0: 0
-    ctime1: 64379
-    ctime2: 64379
-    ctime3: 30455
+    ctime1: 28142
+    ctime2: 65535
+    ctime3: 65535
     ctime4: 38550
     ctime5: 46389
     ctime6: 58339
     ctime7: 64379
     atime0: 0
-    atime1: 20817
-    atime2: 65535
-    atime3: 0
-    atime4: 0
+    atime1: 15934
+    atime2: 43176
+    atime3: 65535
+    atime4: 65535
     atime5: 0
     atime6: 0
     atime7: 0
     m_Mode: 0
     m_ColorSpace: 0
-    m_NumColorKeys: 2
-    m_NumAlphaKeys: 3
+    m_NumColorKeys: 3
+    m_NumAlphaKeys: 4
   near: 27
   far: 150
   distanceFogIntensity: 0.694
   useHeight: 1
   heightGradient:
     serializedVersion: 2
-    key0: {r: 1, g: 1, b: 1, a: 0.09803922}
-    key1: {r: 1, g: 0.99326676, b: 0.5707547, a: 1}
-    key2: {r: 0.6634565, g: 0.94509804, b: 0.0745098, a: 1}
+    key0: {r: 0.9995429, g: 1, b: 0.78301877, a: 0.09803922}
+    key1: {r: 0.6256707, g: 0.54402506, b: 1, a: 1}
+    key2: {r: 1, g: 0.9895563, b: 0.43081754, a: 1}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
     key5: {r: 0, g: 0, b: 0, a: 0}
     key6: {r: 0, g: 0, b: 0, a: 0}
     key7: {r: 0, g: 0, b: 0, a: 0}
     ctime0: 0
-    ctime1: 64379
+    ctime1: 19918
     ctime2: 65535
     ctime3: 0
     ctime4: 0
@@ -123,7 +123,7 @@ MonoBehaviour:
     ctime6: 0
     ctime7: 0
     atime0: 0
-    atime1: 37651
+    atime1: 35723
     atime2: 65535
     atime3: 0
     atime4: 0
@@ -132,11 +132,11 @@ MonoBehaviour:
     atime7: 0
     m_Mode: 0
     m_ColorSpace: 0
-    m_NumColorKeys: 2
+    m_NumColorKeys: 3
     m_NumAlphaKeys: 3
   low: 0
   high: 35
-  heightFogIntensity: 0.631
+  heightFogIntensity: 0.632
   cameraRelativePosition: 0
   distanceHeightBlend: 0.251
   renderEvent: 550
