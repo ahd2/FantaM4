@@ -27,8 +27,8 @@ MonoBehaviour:
   useColor: 1
   minColorThreshold: 0.1
   maxColorThreshold: 0.25
-  renderEvent: 550
-  outlineOnly: 0
+  renderEvent: 500
+  outlineOnly: 1
   applyInSceneView: 1
   effectMaterial: {fileID: 380168944343152361}
 --- !u!21 &380168944343152361
@@ -45,6 +45,7 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - OUTLINE_FADE_OUT
+  - OUTLINE_ONLY
   - OUTLINE_USE_COLOR
   - OUTLINE_USE_DEPTH
   - OUTLINE_USE_NORMALS

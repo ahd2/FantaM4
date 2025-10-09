@@ -6,6 +6,8 @@ public class Bullet : MonoBehaviour
     public float lifeTime = 3f;
 
     Rigidbody rb;
+    [Tooltip("贴花预制体（需包含 Decal Projector 组件）")]
+    public GameObject decalPrefab; // 拖入你的 Decal 预制体
 
     void Awake()
     {
@@ -27,19 +29,25 @@ public class Bullet : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        // var other = collision.gameObject;
+        var other = collision.gameObject;
         // if (other == Owner) return; // 忽略打到自己
         //
-        // // 示例：若目标被标记为 BlueBox，则将它变红
-        // if (other.CompareTag("BlueBox"))
-        // {
-        //     var rend = other.GetComponent<Renderer>();
-        //     if (rend != null)
-        //     {
-        //         // 这里使用 rend.material 会在运行时实例化材质，适合原型/演示
-        //         rend.material.color = Color.red;
-        //     }
-        // }
+        // 获取第一个碰撞点
+        ContactPoint contact = collision.contacts[0];
+        Vector3 hitPoint = contact.point;
+        Vector3 hitNormal = contact.normal;
+
+        // === 1. 生成贴花 ===
+        if (decalPrefab != null)
+        {
+            // 贴花位置：稍微向表面内偏移，避免 Z-fighting
+            Vector3 decalPosition = hitPoint + hitNormal * 0.001f;
+
+            // 贴花旋转：使投影方向垂直于表面（Decal Projector 朝 -forward 方向投影）
+            Quaternion decalRotation = Quaternion.LookRotation(-hitNormal);
+
+            Instantiate(decalPrefab, decalPosition, decalRotation);
+        }
 
         // 其它扩展：发送消息或调用接口（IColorable / IDamageable）
         Destroy(gameObject);

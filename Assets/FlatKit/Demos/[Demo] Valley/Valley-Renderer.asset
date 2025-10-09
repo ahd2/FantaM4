@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b3d386ba5cd94485973aee1479b272e, type: 3}
   m_Name: RenderObjects
   m_EditorClassIdentifier: 
-  m_Active: 1
+  m_Active: 0
   settings:
     passTag: RenderObjects
     Event: 550
@@ -90,9 +90,10 @@ MonoBehaviour:
   - {fileID: -1344586528338988631}
   - {fileID: -5362154582004386055}
   - {fileID: 2444020023455928213}
-  - {fileID: 1504344116483772585}
   - {fileID: -7594527050846373712}
-  m_RendererFeatureMap: a9319428ad1157edf936e54cd1cc95b5954f082a43e7ea21a9d0f6ea0081e014b0f83481e2d19a96
+  - {fileID: 3968262227965610495}
+  - {fileID: 1504344116483772585}
+  m_RendererFeatureMap: a9319428ad1157edf936e54cd1cc95b5954f082a43e7ea21b0f83481e2d19a96ff897db978191237a9d0f6ea0081e014
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
@@ -139,7 +140,7 @@ MonoBehaviour:
   m_ShadowTransparentReceive: 1
   m_RenderingMode: 0
   m_DepthPrimingMode: 0
-  m_CopyDepthMode: 0
+  m_CopyDepthMode: 1
   m_AccurateGbufferNormals: 0
   m_IntermediateTextureMode: 1
 --- !u!114 &1504344116483772585
@@ -154,8 +155,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d613f08f173d4dd895bb07b3230baa9, type: 3}
   m_Name: FullScreenPassRendererFeature
   m_EditorClassIdentifier: 
-  m_Active: 0
-  injectionPoint: 450
+  m_Active: 1
+  injectionPoint: 550
   fetchColorBuffer: 1
   requirements: -1
   passMaterial: {fileID: 2100000, guid: 7d89d7ebef723c546b81bb75ebb128fe, type: 2}
@@ -176,3 +177,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Active: 0
   settings: {fileID: 11400000, guid: c472facfb9eceae4ebca89f811c42f20, type: 2}
+--- !u!114 &3968262227965610495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1614fc811f8f184697d9bee70ab9fe5, type: 3}
+  m_Name: DecalRendererFeature
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  m_Settings:
+    technique: 1
+    maxDrawDistance: 1000
+    decalLayers: 1
+    dBufferSettings:
+      surfaceData: 0
+    screenSpaceSettings:
+      normalBlend: 2
+  m_CopyDepthPS: {fileID: 4800000, guid: d6dae50ee9e1bfa4db75f19f99355220, type: 3}
+  m_DBufferClear: {fileID: 4800000, guid: f056d8bd2a1c7e44e9729144b4c70395, type: 3}

@@ -33,6 +33,8 @@ Shader "Unlit/LossColor"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DeclareDepthTexture.hlsl"
 
             TEXTURE2D(_CameraNormalsTexture);
+            TEXTURE2D(_CameraOpaqueTexture);
+            TEXTURE2D(_DBufferTexture0);
             
             //这个需要自己声明，xy表示纹素的长宽，zw表示整个BlitTexture的长宽，BlitTexture就是当前摄像机的颜色缓冲区
             float4 _BlitTexture_TexelSize;
@@ -95,9 +97,13 @@ Shader "Unlit/LossColor"
             {
                 half2 uv = i.texcoord;
                 //return edge;
-                half4 withEdgeColor = Luminance(SAMPLE_TEXTURE2D_X(_BlitTexture, sampler_LinearClamp, uv));
+                half4 withEdgeColor = SAMPLE_TEXTURE2D_X(_BlitTexture, sampler_LinearClamp, uv);
 
-                return withEdgeColor;
+                half4 color = SAMPLE_TEXTURE2D_X(_CameraOpaqueTexture, sampler_LinearClamp, uv);
+                half4 decal = SAMPLE_TEXTURE2D_X(_DBufferTexture0, sampler_LinearClamp, uv);
+
+                half4 finalcol = lerp(withEdgeColor, color * withEdgeColor, decal);
+                return finalcol;
             }
             ENDHLSL
         }
