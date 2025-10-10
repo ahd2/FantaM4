@@ -20,9 +20,9 @@ MonoBehaviour:
       RenderQueueType: 0
       LayerMask:
         serializedVersion: 2
-        m_Bits: 128
+        m_Bits: 256
       PassNames: []
-    overrideMaterial: {fileID: 2100000, guid: 6cb3d5915b550ee41b58e346dac564b9, type: 2}
+    overrideMaterial: {fileID: 0}
     overrideMaterialPassIndex: 0
     overrideShader: {fileID: 4800000, guid: b55712b1c76542a41b5c7cf340d50386, type: 3}
     overrideShaderPassIndex: 0
@@ -31,8 +31,8 @@ MonoBehaviour:
     depthCompareFunction: 4
     enableWrite: 1
     stencilSettings:
-      overrideStencilState: 0
-      stencilReference: 0
+      overrideStencilState: 1
+      stencilReference: 1
       stencilCompareFunction: 8
       passOperation: 0
       failOperation: 0
@@ -70,6 +70,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Active: 1
   settings: {fileID: 11400000, guid: 27461652cd09d439892b599fddb40841, type: 2}
+--- !u!114 &-223744088146182546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d613f08f173d4dd895bb07b3230baa9, type: 3}
+  m_Name: FullScreenPassRendererFeature
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  injectionPoint: 550
+  fetchColorBuffer: 1
+  requirements: -1
+  passMaterial: {fileID: 2100000, guid: b7481e3d9d3d7c8498a72bb320ec7fca, type: 2}
+  passIndex: 0
+  bindDepthStencilAttachment: 1
+  m_Version: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,11 +109,12 @@ MonoBehaviour:
   m_RendererFeatures:
   - {fileID: -1344586528338988631}
   - {fileID: -5362154582004386055}
+  - {fileID: -223744088146182546}
   - {fileID: 2444020023455928213}
   - {fileID: -7594527050846373712}
   - {fileID: 3968262227965610495}
   - {fileID: 1504344116483772585}
-  m_RendererFeatureMap: a9319428ad1157edf936e54cd1cc95b5954f082a43e7ea21b0f83481e2d19a96ff897db978191237a9d0f6ea0081e014
+  m_RendererFeatureMap: a9319428ad1157edf936e54cd1cc95b56efe73f1ef19e5fc954f082a43e7ea21b0f83481e2d19a96ff897db978191237a9d0f6ea0081e014
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
