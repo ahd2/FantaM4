@@ -13,18 +13,18 @@ MonoBehaviour:
   m_Name: Valley-OutlineSettings [Disabled by Default]
   m_EditorClassIdentifier: 
   edgeColor: {r: 0, g: 0, b: 0, a: 1}
-  thickness: 1
+  thickness: 2
   resolutionInvariant: 0
   fadeWithDistance: 1
-  fadeRangeStart: 50
-  fadeRangeEnd: 250.03
+  fadeRangeStart: 2
+  fadeRangeEnd: 200
   useDepth: 1
   minDepthThreshold: 0.1
   maxDepthThreshold: 0.7
   useNormals: 1
   minNormalsThreshold: 0.09
   maxNormalsThreshold: 2.4
-  useColor: 1
+  useColor: 0
   minColorThreshold: 0.1
   maxColorThreshold: 0.25
   renderEvent: 500
@@ -46,7 +46,6 @@ Material:
   m_ValidKeywords:
   - OUTLINE_FADE_OUT
   - OUTLINE_ONLY
-  - OUTLINE_USE_COLOR
   - OUTLINE_USE_DEPTH
   - OUTLINE_USE_NORMALS
   m_InvalidKeywords: []
@@ -78,11 +77,11 @@ Material:
     - _ColorThresholdMin: 0.1
     - _DepthThresholdMax: 0.7
     - _DepthThresholdMin: 0.1
-    - _FadeRangeEnd: 250.03
-    - _FadeRangeStart: 50
+    - _FadeRangeEnd: 200
+    - _FadeRangeStart: 2
     - _NormalThresholdMax: 2.4
     - _NormalThresholdMin: 0.09
-    - _Thickness: 1
+    - _Thickness: 2
     m_Colors:
     - _EdgeColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
