@@ -1,4 +1,4 @@
-Shader "Unlit/Cartoon"
+Shader"Unlit/CartoonCharacter"
 {
     Properties
     {
@@ -10,6 +10,12 @@ Shader "Unlit/Cartoon"
         Tags { "RenderType"="Opaque" }
         LOD 100
         cull off
+        Stencil
+        {
+            Ref 5
+            Comp Always
+            Pass Replace
+        }
         Pass
         {
             HLSLPROGRAM
