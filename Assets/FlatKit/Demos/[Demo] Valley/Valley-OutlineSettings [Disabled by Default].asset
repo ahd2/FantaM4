@@ -24,11 +24,11 @@ MonoBehaviour:
   useNormals: 1
   minNormalsThreshold: 0.09
   maxNormalsThreshold: 2.4
-  useColor: 0
-  minColorThreshold: 0.1
-  maxColorThreshold: 0.25
+  useColor: 1
+  minColorThreshold: 0
+  maxColorThreshold: 4.15
   renderEvent: 500
-  outlineOnly: 1
+  outlineOnly: 0
   applyInSceneView: 1
   effectMaterial: {fileID: 380168944343152361}
 --- !u!21 &380168944343152361
@@ -45,7 +45,7 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - OUTLINE_FADE_OUT
-  - OUTLINE_ONLY
+  - OUTLINE_USE_COLOR
   - OUTLINE_USE_DEPTH
   - OUTLINE_USE_NORMALS
   m_InvalidKeywords: []
@@ -73,8 +73,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _ColorThresholdMax: 0.25
-    - _ColorThresholdMin: 0.1
+    - _ColorThresholdMax: 4.15
+    - _ColorThresholdMin: 0
     - _DepthThresholdMax: 0.7
     - _DepthThresholdMin: 0.1
     - _FadeRangeEnd: 200
