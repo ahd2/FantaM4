@@ -24,8 +24,9 @@ public class PlayerState_Aim : PlayerState
     public override void PhysicUpdate()
     {
         // 瞄准时禁止移动
-        playerCharacter.SetVelocityXZ(Vector3.zero);
+        //playerCharacter.SetVelocityXZ(Vector3.zero);
 
+        playerCharacter.Move(5.0f);//要改成锁定朝向的run
         // 让角色朝向相机
         Transform cam = Camera.main.transform;
         Vector3 forward = cam.forward;

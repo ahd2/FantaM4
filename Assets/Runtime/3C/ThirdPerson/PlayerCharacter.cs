@@ -115,33 +115,33 @@ public class PlayerCharacter : MonoBehaviour
     
     [SerializeField] private CinemachineFreeLook freeLookCam;
     [SerializeField] private CinemachineFreeLook aimCam;
-
-    /// <summary>
-    /// 同步 FreeLook 相机的轨道角度到当前相机实际朝向
-    /// </summary>
-    public void SyncFreeLookToCurrentView()
+    
+    void LateUpdate()
     {
-        if (freeLookCam == null) return;
+        if (aimCam == null || freeLookCam == null) return;
 
-        // 获取当前激活的 Cinemachine 相机的实际朝向
-        var currentCamera = GetActiveCinemachineCamera();
-        if (currentCamera == null) return;
+        // 谁的 Priority 更高，谁就是当前激活的相机
+        CinemachineFreeLook activeCam, inactiveCam;
 
-        // 获取当前相机的 Forward（世界空间）
-        Vector3 forward = currentCamera.transform.forward;
+        if (aimCam.Priority > freeLookCam.Priority)
+        {
+            activeCam = aimCam;
+            inactiveCam = freeLookCam;
+        }
+        else
+        {
+            activeCam = freeLookCam;
+            inactiveCam = aimCam;
+        }
 
-        // 投影到水平面（忽略Y轴）
+        // 获取激活相机的水平朝向（Yaw）
+        Vector3 forward = activeCam.transform.forward;
         forward.y = 0;
-        if (forward.sqrMagnitude < 0.01f) return;
-        forward.Normalize();
-
-        // 计算 Yaw（水平旋转角度）
-        float currentYaw = Mathf.Atan2(forward.x, forward.z) * Mathf.Rad2Deg;
-
-        // 设置 FreeLook 的 X Axis（水平轨道角度）
-        freeLookCam.m_XAxis.Value = currentYaw;
-
-        
+        if (forward.sqrMagnitude > 0.01f)
+        {
+            // 只同步非激活相机，避免写回自身（虽然无害，但更清晰）
+            inactiveCam.m_XAxis.Value = activeCam.m_XAxis.Value;
+        }
     }
 
     private Camera GetActiveCinemachineCamera()
@@ -157,14 +157,14 @@ public class PlayerCharacter : MonoBehaviour
     }
     public void EnterAimMode()
     {
-        SyncFreeLookToCurrentView();
+        //SyncFreeLookToCurrentView();
         aimCam.Priority = 20;
         freeLookCam.Priority = 5;
     }
 
     public void ExitAimMode()
     {
-        SyncFreeLookToCurrentView();
+        //SyncFreeLookToCurrentView();
         aimCam.Priority = 5;
         freeLookCam.Priority = 10;
     }
