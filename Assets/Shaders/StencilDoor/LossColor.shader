@@ -3,6 +3,7 @@ Shader "Unlit/LossColor"
     Properties
     {
         _EdgeColor("EdgeColor",Color)=(0,0,0,1)
+        _Mask("Mask", Range(0.00001,1)) = 0.1
         _Ref("Stencil Ref",int) = 0
     }
     SubShader
@@ -47,6 +48,7 @@ Shader "Unlit/LossColor"
             float _NormalThreshold;
             float _DepthNormalThreshold;
 			float _DepthNormalThresholdScale;
+            float _Mask;
             CBUFFER_END
 
             struct OutlineVaryings
@@ -96,6 +98,7 @@ Shader "Unlit/LossColor"
             half4 Frag(OutlineVaryings i) : SV_TARGET
             {
                 half2 uv = i.texcoord;
+                
                 //return edge;
                 half4 withEdgeColor = SAMPLE_TEXTURE2D_X(_BlitTexture, sampler_LinearClamp, uv);
 
@@ -103,6 +106,7 @@ Shader "Unlit/LossColor"
                 half4 decal = SAMPLE_TEXTURE2D_X(_DBufferTexture0, sampler_LinearClamp, uv);
 
                 half4 finalcol = lerp(withEdgeColor, color * withEdgeColor, decal);
+                //再加个场景亮度和饱和度吧
                 return finalcol;
             }
             ENDHLSL

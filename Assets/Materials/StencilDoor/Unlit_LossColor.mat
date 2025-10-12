@@ -28,6 +28,7 @@ Material:
     - _DepthNormalThreshold: 0
     - _DepthNormalThresholdScale: 0
     - _DepthThreshold: 0
+    - _Mask: 1
     - _NormalThreshold: 0
     - _Ref: 0
     - _Scale: 0

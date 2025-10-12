@@ -5438,7 +5438,7 @@ public class PandavfxGUI23 : ShaderGUI
         EditorGUILayout.BeginVertical(EditorStyles.helpBox);
 
 
-        GUILayout.Label("本shader由油腻联盟坏熊猫制作，特别感谢闻亚洲，Nor_Zed，sion，123木头人，lolming，Allen，苏坤，AmantJy，仲冬，馒头,自赎,Cokey,J迷,AimerLily,救救孩子的帮助与支持", style);
+        GUILayout.Label("本shader由油腻联盟坏熊猫制作，特别感谢闻亚洲，Nor_Zed，sion，123木头人，lolming，Allen，苏坤，AmantJy，仲冬，馒头,自赎,Cokey,J迷,AimerLily,救救孩子,XRX的帮助与支持", style);
         EditorGUILayout.EndVertical();
 
     }
