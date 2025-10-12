@@ -12,21 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b3d386ba5cd94485973aee1479b272e, type: 3}
   m_Name: RenderObjects
   m_EditorClassIdentifier: 
-  m_Active: 0
+  m_Active: 1
   settings:
     passTag: RenderObjects
     Event: 550
     filterSettings:
-      RenderQueueType: 0
+      RenderQueueType: 1
       LayerMask:
         serializedVersion: 2
-        m_Bits: 256
+        m_Bits: 4294967295
       PassNames: []
     overrideMaterial: {fileID: 0}
     overrideMaterialPassIndex: 0
     overrideShader: {fileID: 4800000, guid: b55712b1c76542a41b5c7cf340d50386, type: 3}
     overrideShaderPassIndex: 0
-    overrideMode: 2
+    overrideMode: 0
     overrideDepthState: 0
     depthCompareFunction: 4
     enableWrite: 1

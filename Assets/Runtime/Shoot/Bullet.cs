@@ -8,6 +8,7 @@ public class Bullet : MonoBehaviour
     Rigidbody rb;
     [Tooltip("贴花预制体（需包含 Decal Projector 组件）")]
     public GameObject decalPrefab; // 拖入你的 Decal 预制体
+    public GameObject fxPrefab; // 拖入你的 Decal 预制体
 
     void Awake()
     {
@@ -47,6 +48,7 @@ public class Bullet : MonoBehaviour
             Quaternion decalRotation = Quaternion.LookRotation(-hitNormal);
 
             Instantiate(decalPrefab, decalPosition, decalRotation);
+            Instantiate(fxPrefab, decalPosition, decalRotation);
         }
 
         // 其它扩展：发送消息或调用接口（IColorable / IDamageable）
