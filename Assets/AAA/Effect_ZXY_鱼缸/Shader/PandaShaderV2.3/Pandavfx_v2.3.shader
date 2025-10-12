@@ -211,7 +211,7 @@ Shader "VFX/Pandavfx_v2.3"
 
 	SubShader
 	{
-		Tags{ "RenderType" = "Transparent"  "Queue" = "Transparent+0" "IsEmissive" = "true"  }
+		Tags{ "RenderType" = "Transparent"  "Queue" = "Transparent+0" "IsEmissive" = "true" "RenderPipeline" = "UniversalPipeline" }
 		Cull [_Cullmode]
 		ZWrite [_Zwrite]
 		ZTest [_Ztest]
@@ -224,7 +224,7 @@ Shader "VFX/Pandavfx_v2.3"
 		}
 		Blend [_Scr] [_Dst]
 		
-		GrabPass{ }
+		//GrabPass{ }
 		CGINCLUDE
 		#include "UnityPBSLighting.cginc"
 		#include "UnityShaderVariables.cginc"
