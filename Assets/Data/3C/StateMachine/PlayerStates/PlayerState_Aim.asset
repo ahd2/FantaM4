@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0127a813a8c553d4b9a0c45611f080c0, type: 3}
   m_Name: PlayerState_Aim
   m_EditorClassIdentifier: 
-  stateAnimationName: Run
+  stateAnimationName: attack
   transitionDuration: 0.1

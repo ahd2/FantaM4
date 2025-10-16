@@ -43350,6 +43350,42 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1749642963}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1754738821 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1517584442866025193, guid: d2b09626f1f39554d9c4a4ee3c43b52e,
+    type: 3}
+  m_PrefabInstance: {fileID: 3050433720854064715}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1754738824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1754738821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e501d18bb52cf8c40b1853ca4904654f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CollideAgainst:
+    serializedVersion: 2
+    m_Bits: 1
+  m_IgnoreTag: 
+  m_TransparentLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_MinimumDistanceFromTarget: 0.1
+  m_AvoidObstacles: 1
+  m_DistanceLimit: 0
+  m_MinimumOcclusionTime: 0
+  m_CameraRadius: 0.1
+  m_Strategy: 1
+  m_MaximumEffort: 4
+  m_SmoothingTime: 0
+  m_Damping: 0
+  m_DampingWhenOccluded: 0
+  m_OptimalTargetDistance: 0
 --- !u!1001 &1762314708
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -51400,6 +51436,42 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2022431940}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2023253791 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1473213290877889018, guid: d2b09626f1f39554d9c4a4ee3c43b52e,
+    type: 3}
+  m_PrefabInstance: {fileID: 3050433720854064715}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2023253794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2023253791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e501d18bb52cf8c40b1853ca4904654f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CollideAgainst:
+    serializedVersion: 2
+    m_Bits: 1
+  m_IgnoreTag: 
+  m_TransparentLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_MinimumDistanceFromTarget: 0.1
+  m_AvoidObstacles: 1
+  m_DistanceLimit: 0
+  m_MinimumOcclusionTime: 0
+  m_CameraRadius: 0.1
+  m_Strategy: 1
+  m_MaximumEffort: 4
+  m_SmoothingTime: 0
+  m_Damping: 0
+  m_DampingWhenOccluded: 0
+  m_OptimalTargetDistance: 0
 --- !u!1001 &2023954861
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -55863,22 +55935,22 @@ PrefabInstance:
     - target: {fileID: 6594632977274668173, guid: d2b09626f1f39554d9c4a4ee3c43b52e,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.1199477
+      value: 0.11994772
       objectReference: {fileID: 0}
     - target: {fileID: 6594632977274668173, guid: d2b09626f1f39554d9c4a4ee3c43b52e,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.007386009
+      value: 0.007386012
       objectReference: {fileID: 0}
     - target: {fileID: 6594632977274668173, guid: d2b09626f1f39554d9c4a4ee3c43b52e,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.99087596
+      value: 0.990876
       objectReference: {fileID: 0}
     - target: {fileID: 6594632977274668173, guid: d2b09626f1f39554d9c4a4ee3c43b52e,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.061015088
+      value: -0.061015118
       objectReference: {fileID: 0}
     - target: {fileID: 6922905505478656404, guid: d2b09626f1f39554d9c4a4ee3c43b52e,
         type: 3}
@@ -56023,7 +56095,15 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1473213290877889018, guid: d2b09626f1f39554d9c4a4ee3c43b52e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2023253794}
+    - targetCorrespondingSourceObject: {fileID: 1517584442866025193, guid: d2b09626f1f39554d9c4a4ee3c43b52e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1754738824}
   m_SourcePrefab: {fileID: 100100000, guid: d2b09626f1f39554d9c4a4ee3c43b52e, type: 3}
 --- !u!205 &4742473838955756836
 LODGroup:
