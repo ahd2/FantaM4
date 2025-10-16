@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.d4ku.material-timeline": "https://github.com/D4KU/unity-material-timeline.git",
     "com.unity.ai.navigation": "1.1.5",
     "com.unity.cinemachine": "2.10.4",
     "com.unity.collab-proxy": "2.7.1",

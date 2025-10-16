@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.d4ku.material-timeline": {
+      "version": "https://github.com/D4KU/unity-material-timeline.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "18a595e9a0a88dd34ba1bf85c7d6e85de425ba93"
+    },
     "com.unity.ai.navigation": {
       "version": "1.1.5",
       "depth": 0,

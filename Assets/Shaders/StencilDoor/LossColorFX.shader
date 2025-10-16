@@ -4,6 +4,7 @@ Shader "Unlit/LossColorFX"
     {
         _EdgeColor("EdgeColor",Color)=(0,0,0,1)
         _Mask("Mask", Range(0.00001,1)) = 0.1
+        
         _Ref("Stencil Ref",int) = 0
     }
     SubShader

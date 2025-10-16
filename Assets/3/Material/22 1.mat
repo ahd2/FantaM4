@@ -8,10 +8,11 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 22 1
-  m_Shader: {fileID: 4800000, guid: 446de4ba36021554a94eb3e445fa294c, type: 3}
+  m_Shader: {fileID: 4800000, guid: 5b739e600ec1b0449b3375ab46404917, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - _FACE_Y
-  - _MAINTEXUVS_NORMAL
+  - _COLORSTYLE_NORMAL
   m_InvalidKeywords:
   - _CADDTEXUVT_ON
   - _DISSOLVEAR_ON
@@ -20,12 +21,15 @@ Material:
   - _DISTORTADDTEX_ON
   - _DISTORTMASKTEXAR_ON
   - _DISTORTTEXAR_ON
+  - _FACE_Y
   - _IFADDTEXCOLOR_ON
   - _IFDISSOLVECOLOR_ON
+  - _MAINTEXUVS_NORMAL
   - _MAINTEX_AR_ON
   - _MASKALPHARA_ON
   - _MASKPLUSAR_ON
   - _MASKTEXUVS_NORMAL
+  - _TEXAR_ON
   - _VTOAR_ON
   - _VTOMASKAR_ON
   m_LightmapFlags: 4
@@ -34,6 +38,7 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -61,6 +66,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Logo:
+        m_Texture: {fileID: 2800000, guid: 952e6cda434200247b8852b4b5d1a444, type: 3}
+        m_Scale: {x: 3, y: 3}
+        m_Offset: {x: 0, y: 0.1}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: 76156a86050725548b1911877bf1046e, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -80,6 +89,10 @@ Material:
     - _ParaTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Tex:
+        m_Texture: {fileID: 2800000, guid: e26cf22f8c9746d40b85289d87d0f184, type: 3}
+        m_Scale: {x: 300, y: 300}
         m_Offset: {x: 0, y: 0}
     - _VATNormalTex:
         m_Texture: {fileID: 0}
@@ -126,10 +139,13 @@ Material:
     - _AddTexUspeed: 0
     - _AddTexVspeed: 0
     - _AlphaAdd: 0
+    - _BlurFactor: 0
+    - _BlurFactorK: 0
     - _CAddTexUV: 0
     - _CAddTexUVT: 1
     - _CenterU: 0.5
     - _CenterV: 0.5
+    - _ColorStyle: 0
     - _Comparison: 8
     - _CubemapScale: 0
     - _Cullmode: 0
@@ -188,6 +204,7 @@ Material:
     - _IfAddTex: 0
     - _IfAddTexAlpha: 0
     - _IfAddTexColor: 1
+    - _IfBlurFactor: 0
     - _IfCubemap: 0
     - _IfCustomLight: 0
     - _IfDissolveColor: 1
@@ -195,14 +212,31 @@ Material:
     - _IfDissolvePlus: 0
     - _IfFNLAlpha: 0
     - _IfFlowmap: 0
+    - _IfLineUVScale: 0
+    - _IfMainAlpha: 0
     - _IfMaskColor: 0
     - _IfMaskPlusTex: 0
     - _IfNormalDistort: 0
     - _IfPara: 0
+    - _IfRedBlueFactor: 0
     - _IfStaticNormal: 0
+    - _IfStepFactor: 0
     - _IfVAT: 0
+    - _IfVignettePower: 0
+    - _IfVignetteScale: 0
+    - _Ifzhenfu: 0
+    - _Ifzhenpin: 0
     - _LightScale: 0
+    - _LineColorScale: 0
+    - _LineOffset: 0
+    - _LineTilingU: 2
+    - _LineTilingV: 8
+    - _LineUVScale: 0
+    - _LineUVScaleK: 0
+    - _LogoAR: 0
+    - _LogoAlpha: 0.2
     - _MainAlpha: 1
+    - _MainAlphaK: 1
     - _MainOffsetUC1: 0
     - _MainOffsetUC2: 0
     - _MainOffsetVC1: 0
@@ -242,12 +276,20 @@ Material:
     - _Parallax: 0
     - _ParticleVAT: 0
     - _Pass: 0
+    - _RedBlueFactor: 0
+    - _RedBlueFactorK: 0
     - _Reference: 0
     - _Scr: 5
     - _ScreenAsMain: 0
+    - _Soft: 0.5
     - _StaticNormalOffset: 0
     - _StaticNormalScale: 0
     - _StencilStyle: 0
+    - _StepFactor: 0.6
+    - _StepFactorK: 0
+    - _TexAR: 1
+    - _TexAlpha: 0.07
+    - _TexRotator: 0.075
     - _ToggleSwitch0: 0
     - _VATFrameC1: 1
     - _VATFrameC2: 4
@@ -268,9 +310,15 @@ Material:
     - _VTOTexExp: 1
     - _VTOTex_Uspeed: 0
     - _VTOTex_Vspeed: 0
+    - _VignettePower: 1.5
+    - _VignettePowerK: 1.5
+    - _VignetteScale: 1.5
+    - _VignetteScaleK: 1.5
     - _Ztest: 4
     - _Zwrite: 0
     - __dirty: 1
+    - _centerU: 0.5
+    - _centerV: 0.5
     - _fnl_power: 1
     - _fnl_sacle: 0
     - _qubaohedu: 0
@@ -279,10 +327,16 @@ Material:
     - _soft_sting: 0
     - _softback: 0
     - _sot_sting_A: 0
+    - _zhenfu: 0
+    - _zhenfuK: 0
+    - _zhenpin: 0
+    - _zhenpinK: 0
     m_Colors:
     - _AddTexColor: {r: 0, g: 0, b: 0, a: 0}
     - _AddTexRefine: {r: 1, g: 1, b: 2, a: 0}
     - _BackFaceColor: {r: 1, g: 1, b: 1, a: 0}
+    - _Color1: {r: 1, g: 1, b: 1, a: 0}
+    - _Color2: {r: 0, g: 0, b: 0, a: 0}
     - _DIssloveColor: {r: 1, g: 1, b: 1, a: 1}
     - _DepthColor: {r: 0, g: 0, b: 0, a: 0}
     - _Dir: {r: 0, g: 0, b: 0, a: 0}
