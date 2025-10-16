@@ -4,7 +4,9 @@ Shader "Unlit/LossColorFX"
     {
         _EdgeColor("EdgeColor",Color)=(0,0,0,1)
         _Mask("Mask", Range(0.00001,0.17)) = 0.1
-        
+        _Light("Light", Range(0.00001,20)) = 0.1
+        _Sature("Sature", Float) = 0.0
+
         _Ref("Stencil Ref",int) = 0
     }
     SubShader
@@ -50,6 +52,8 @@ Shader "Unlit/LossColorFX"
             float _DepthNormalThreshold;
 			float _DepthNormalThresholdScale;
             float _Mask;
+            float _Light;
+            float _Sature;
             CBUFFER_END
 
             struct OutlineVaryings
@@ -124,11 +128,16 @@ Shader "Unlit/LossColorFX"
                 half4 withEdgeColor = SAMPLE_TEXTURE2D_X(_BlitTexture, sampler_LinearClamp, uv);
 
                 half4 color = SAMPLE_TEXTURE2D_X(_CameraOpaqueTexture, sampler_LinearClamp, uv);
+
+                float3 hsv = RgbToHsv(color.xyz);
+                hsv.y += _Sature;
+                color.xyz = HsvToRgb(hsv);
+                
                 half4 decal = SAMPLE_TEXTURE2D_X(_DBufferTexture0, sampler_LinearClamp, uv);
 
-                half4 finalcol = lerp(withEdgeColor, color * withEdgeColor, 1-saturate(max(decal.r, distance*  _Mask)));
+                half4 finalcol = lerp(withEdgeColor , color * withEdgeColor, 1-saturate(max(decal.r, distance*  _Mask)));
                 //再加个场景亮度和饱和度吧
-                return finalcol;
+                return finalcol* _Light;
             }
             ENDHLSL
         }
