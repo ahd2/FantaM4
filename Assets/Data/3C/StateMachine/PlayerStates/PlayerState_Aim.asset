@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: PlayerState_Aim
   m_EditorClassIdentifier: 
   stateAnimationName: attack
-  transitionDuration: 0.1
+  transitionDuration: 0.068
