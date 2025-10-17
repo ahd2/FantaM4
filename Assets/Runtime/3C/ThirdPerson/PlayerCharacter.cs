@@ -112,6 +112,28 @@ public class PlayerCharacter : MonoBehaviour
             currentRotate = quaDir;
         }
     }
+    /// <summary>
+    /// 根据输入信号来以指定速度移动玩家
+    /// </summary>
+    public void LockMove(float speed)
+    {
+        Transform cam = Camera.main.transform;
+
+        // 相机 forward/right，只保留水平分量
+        Vector3 forward = cam.forward;
+        forward.y = 0;
+        forward.Normalize();
+
+        Vector3 right = cam.right;
+        right.y = 0;
+        right.Normalize();
+
+        // 输入
+        Vector3 moveDir = forward * input.axes.y + right * input.axes.x;
+
+        // 应用速度
+        SetVelocityXZ(moveDir * speed);
+    }
     
     [SerializeField] private CinemachineFreeLook freeLookCam;
     [SerializeField] private CinemachineFreeLook aimCam;
@@ -141,6 +163,7 @@ public class PlayerCharacter : MonoBehaviour
         {
             // 只同步非激活相机，避免写回自身（虽然无害，但更清晰）
             inactiveCam.m_XAxis.Value = activeCam.m_XAxis.Value;
+            inactiveCam.m_YAxis.Value = activeCam.m_YAxis.Value;
         }
     }
 

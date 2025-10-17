@@ -50,6 +50,13 @@ public class Bullet : MonoBehaviour
             Instantiate(decalPrefab, decalPosition, decalRotation);
             Instantiate(fxPrefab, decalPosition, decalRotation);
         }
+        
+        // === 2. 检查是否击中敌人 ===
+        Enemy enemy = other.GetComponent<Enemy>();
+        if (enemy != null)
+        {
+            enemy.OnHit();
+        }
 
         // 其它扩展：发送消息或调用接口（IColorable / IDamageable）
         Destroy(gameObject);
