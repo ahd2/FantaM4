@@ -141,7 +141,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Player
+  m_Name: "\u602A"
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: isjump
@@ -207,7 +207,7 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 7566539312758367672}
-    m_Position: {x: 300, y: 100, z: 0}
+    m_Position: {x: 270, y: 100, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4823768267545395706}
     m_Position: {x: 530, y: 110, z: 0}
@@ -289,7 +289,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: 49249a86caab827428d6bb51064e136a,
+  m_Motion: {fileID: -203655887218126122, guid: c199da029acd2a94e9bcf0b28bed0097,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 
@@ -316,7 +316,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: 931ad1c95c73c2546b6aac7cedf386b0,
+  m_Motion: {fileID: -203655887218126122, guid: 95b0c279622e6cf40b02128a211c9a31,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 

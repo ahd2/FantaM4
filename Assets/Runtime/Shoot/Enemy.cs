@@ -18,10 +18,29 @@ public class Enemy : MonoBehaviour
 
     private bool isDead = false;
 
+    [Header("移动配置")]
+    [Tooltip("移动速度（单位：米/秒）")]
+    public float moveSpeed = 2f;
+
+    // 是否暂停移动（受击时）
+    private bool isHitStunned = false;
+
+    // 记录受击前的位置（第一次受击时记录）
+    private Vector3 hitStartPos;
+
     void Awake()
     {
         if (animator == null)
             animator = GetComponent<Animator>();
+    }
+
+    void Update()
+    {
+        // 死亡或受击时不移动
+        if (isDead || isHitStunned) return;
+
+        // 沿自身Z轴（正方向）持续移动
+        transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
     }
 
     /// <summary>
@@ -33,28 +52,60 @@ public class Enemy : MonoBehaviour
 
         currentHitCount++;
 
-        Debug.Log("hit1");
-        // 播放随机受击动画
         if (hitAnimations != null && hitAnimations.Length > 0)
         {
-            Debug.Log("hit");
             int index = Random.Range(0, hitAnimations.Length);
-            animator.Play(hitAnimations[index], 0, 0f); // 从头播放
+            string anim = hitAnimations[index];
+
+            // 只有在第一次进入受击状态时才下沉并记录位置
+            if (!isHitStunned)
+            {
+                isHitStunned = true;
+                hitStartPos = transform.position; // 记录受击前位置
+                transform.position = hitStartPos + Vector3.down * 1f; // 下沉一次
+
+                StartCoroutine(PlayHitAnimation(anim));
+            }
+            else
+            {
+                // 仍在受击中，只刷新动画
+                animator.Play(anim, 0, 0f);
+            }
         }
 
-        // 判断是否死亡
         if (currentHitCount >= maxHitCount)
         {
             Die();
         }
     }
 
+    IEnumerator PlayHitAnimation(string animName)
+    {
+        animator.Play(animName, 0, 0f);
+
+        float hitDuration = animator.GetCurrentAnimatorStateInfo(0).length;
+        yield return new WaitForSeconds(hitDuration);
+
+        // 动画结束后恢复原位（若尚未死亡）
+        if (!isDead)
+            transform.position = hitStartPos;
+
+        isHitStunned = false;
+    }
+
     void Die()
     {
-        isDead = true;
-        animator.Play(deathAnimation, 0, 0f); // 从头播放
+        // 如果在受击中，下沉中 → 恢复到原位
+        if (isHitStunned)
+        {
+            transform.position = hitStartPos;
+            isHitStunned = false;
+        }
 
-        // 延迟销毁怪物（可根据死亡动画长度调整）
+        isDead = true;
+        animator.Play(deathAnimation, 0, 0f);
+
+        // 延迟销毁
         StartCoroutine(DelayedDestroy(3f));
     }
 

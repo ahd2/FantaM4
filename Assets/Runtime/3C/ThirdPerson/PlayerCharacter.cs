@@ -82,6 +82,42 @@ public class PlayerCharacter : MonoBehaviour
         //实现镜头旋转的逻辑
         Quaternion rot = Quaternion.Euler(0,_photographer.Yaw,0);
     }
+    // PlayerCharacter.cs 里新增
+    public void Fly(float speed)
+    {
+        // 取激活的 Cinemachine 输出相机（若无则用 Camera.main）
+        Camera cam = GetActiveCinemachineCamera() ?? Camera.main;
+
+        // 以屏幕中心为方向的射线（包含相机的俯仰，不投平）
+        Vector3 forward = cam.ScreenPointToRay(
+            new Vector2(Screen.width * 0.5f, Screen.height * 0.5f)
+        ).direction.normalized;
+
+        // 右方向直接用相机的 right（横移不带垂直分量更顺手，可以投平到水平面；如要纯相机 right 就去掉 y=0 这行）
+        Vector3 right = cam.transform.right;
+        right.y = 0f;                    // 让横移不抬头/俯冲（需要跟随俯仰就删除这行）
+        right.Normalize();
+
+        // 输入（W/S 沿“屏幕中心的方向”，A/D 沿右方向）
+        Vector3 moveDir = forward * input.axes.y + right * input.axes.x;
+
+        if (moveDir.sqrMagnitude > 0.0001f)
+        {
+            moveDir.Normalize();
+            SetVelocity(moveDir * speed);  // 3D 速度：不受重力时即可飞行
+            // 同步朝向
+            Quaternion quaDir = Quaternion.LookRotation(moveDir, Vector3.up);
+            transform.rotation = Quaternion.Lerp(
+                transform.rotation, quaDir, Time.fixedDeltaTime * 15f
+            );
+        }
+        else
+        {
+            // 没有输入时，停下（避免缓慢漂移）
+            SetVelocity(Vector3.zero);
+        }
+    }
+
     /// <summary>
     /// 根据输入信号来以指定速度移动玩家
     /// </summary>
@@ -256,9 +292,6 @@ public class PlayerCharacter : MonoBehaviour
     {
         if (bulletPrefab == null || aimMuzzle == null) return;
 
-        var bulletGo = Instantiate(bulletPrefab, aimMuzzle.position, Quaternion.identity);
-        var bulletRb = bulletGo.GetComponent<Rigidbody>();
-
         // 获取当前实际输出的摄像机（兼容 Cinemachine）
         Camera cam = GetActiveCinemachineCamera() ?? Camera.main;
 
@@ -266,6 +299,12 @@ public class PlayerCharacter : MonoBehaviour
         Vector3 dir = cam.ScreenPointToRay(new Vector2(Screen.width * 0.5f, Screen.height * 0.5f)).direction.normalized;
 
         Vector3 velocity = dir * bulletSpeed;
+
+        // 创建子弹时旋转对齐：让子弹的X轴（红轴）朝向速度方向
+        Quaternion rot = Quaternion.LookRotation(velocity, Vector3.up) * Quaternion.Euler(0, -90, 0);
+
+        var bulletGo = Instantiate(bulletPrefab, aimMuzzle.position, rot);
+        var bulletRb = bulletGo.GetComponent<Rigidbody>();
 
         if (bulletRb != null)
             bulletRb.velocity = velocity;
@@ -282,6 +321,7 @@ public class PlayerCharacter : MonoBehaviour
         var bulletScript = bulletGo.GetComponent<Bullet>();
         if (bulletScript != null) bulletScript.Init(velocity, this.gameObject);
     }
+
     
     private void HandleFiring()
     {

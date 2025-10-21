@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateAnimationName: jump
   transitionDuration: 0
-  jumpForce: 15
-  runspeed: 5
+  jumpForce: 30
+  runspeed: 6

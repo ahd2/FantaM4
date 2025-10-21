@@ -120,8 +120,8 @@ Shader "Unlit/LossColorFX"
                 float3 worldPos = mul(UNITY_MATRIX_I_V, float4(viewPos.xyz, 1)).xyz;
                 
                 // === 计算与相机距离并生成雾效 ===
-                //float3 camPos = _WorldSpaceCameraPos;
-                float3 camPos = float3(-6.94, 41,131.5);
+                float3 camPos = _WorldSpaceCameraPos;
+                //float3 camPos = float3(-6.94, 41,131.5);
                 float distance = length(worldPos - camPos);
                 
                 //return edge;

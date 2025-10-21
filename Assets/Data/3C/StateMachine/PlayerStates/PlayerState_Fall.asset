@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateAnimationName: fall
   transitionDuration: 0.1
-  runspeed: 5
+  runspeed: 7
   speedCurver:
     serializedVersion: 2
     m_Curve:
