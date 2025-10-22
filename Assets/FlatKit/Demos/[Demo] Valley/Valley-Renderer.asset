@@ -56,6 +56,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Active: 1
   settings: {fileID: 11400000, guid: 65c8ad4d9aa324466a22e34e05ac4651, type: 2}
+--- !u!114 &-4046004771078484823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67f94e562dd1e3f4794ed92332f057bb, type: 3}
+  m_Name: CloudRenderFeature
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  settings:
+    renderPassEvent: 300
+    blitMaterial: {fileID: 2100000, guid: 8eba991273fdd634b811d47091ae6e5b, type: 2}
+    blurMaterial: {fileID: 2100000, guid: af9fa74ccbfb70b40b893ad298ba351b, type: 2}
 --- !u!114 &-1344586528338988631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,7 +132,8 @@ MonoBehaviour:
   - {fileID: 3968262227965610495}
   - {fileID: 1504344116483772585}
   - {fileID: 3777118878524884137}
-  m_RendererFeatureMap: a9319428ad1157edf936e54cd1cc95b56efe73f1ef19e5fc954f082a43e7ea21b0f83481e2d19a96ff897db978191237a9d0f6ea0081e014a9c4e5a49b056b34
+  - {fileID: -4046004771078484823}
+  m_RendererFeatureMap: a9319428ad1157edf936e54cd1cc95b56efe73f1ef19e5fc954f082a43e7ea21b0f83481e2d19a96ff897db978191237a9d0f6ea0081e014a9c4e5a49b056b34a9cc54ec18b4d9c7
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
