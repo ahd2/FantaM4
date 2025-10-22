@@ -7,12 +7,15 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Wanderer-Skybox3
-  m_Shader: {fileID: 4800000, guid: e32cae2a5bbfb41888ef2ba8391ab87d, type: 3}
-  m_Parent: {fileID: 2100000, guid: d1339379183f7481e91b499d20be7e62, type: 2}
+  m_Name: LightPlane-01
+  m_Shader: {fileID: 4800000, guid: de78d2ec04e9f4735a68f342480140f6, type: 3}
+  m_Parent: {fileID: 2100000, guid: 40f1047a5285b724b98e23eb2a06e5cd, type: 2}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
+  m_ValidKeywords:
+  - _ALLOWALPHAOVERFLOW_OFF
+  m_InvalidKeywords:
+  - _GLOSSYREFLECTIONS_OFF
+  - _SPECULARHIGHLIGHTS_OFF
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -25,7 +28,5 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats: []
-    m_Colors:
-    - _Color1: {r: 0.28298193, g: 0.986, b: 0.9646946, a: 0}
-    - _Color2: {r: 0.6132076, g: 0.6132076, b: 0.6132076, a: 0}
+    m_Colors: []
   m_BuildTextureStacks: []
